@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="800" height="580" viewBox="0 0 800 580">
+     width="800" height="245" viewBox="0 0 800 245">
   <defs>
     <linearGradient id="cardGrad-LatitudWeb" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0.05"/>
@@ -11,11 +11,11 @@
     </filter>
   </defs>
 
-  <rect width="800" height="580" fill="#12121a" rx="8"/>
-  <rect width="800" height="580" fill="url(#cardGrad-LatitudWeb)" rx="8"/>
+  <rect width="800" height="245" fill="#12121a" rx="8"/>
+  <rect width="800" height="245" fill="url(#cardGrad-LatitudWeb)" rx="8"/>
 
   <!-- Border -->
-  <rect x="1" y="1" width="798" height="578" rx="8" fill="none"
+  <rect x="1" y="1" width="798" height="243" rx="8" fill="none"
         stroke="#00f0ff" stroke-width="1" opacity="0.4"/>
 
   <!-- Header -->
@@ -38,7 +38,7 @@
         <tspan dx="20">&#9741; 0</tspan>
         <tspan dx="20">&#9888; 0 issues</tspan>
         <tspan dx="20">&#9658; 0 PRs</tspan>
-        <tspan dx="20">&#9776; 4 repos</tspan>
+        <tspan dx="20">&#9776; 0 repos</tspan>
       </text>
     </g>
 
@@ -51,156 +51,11 @@
   </text>
 
   
-    <g transform="translate(30, 140)">
-      <circle cx="0" cy="-4" r="4" fill="#ff5a03"/>
-      <text x="14" y="0" font-family="'Courier New', monospace" font-size="12" fill="#e0e0ff">
-        latitudweb-landing
-      </text>
-      <text x="350" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        Astro
-      </text>
-      <text x="480" y="0" font-family="'Courier New', monospace" font-size="10" fill="#39ff14">
-        PRs: 0
-      </text>
-      <text x="560" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        2026-04-08
-      </text>
-    </g>
-    <g transform="translate(30, 172)">
-      <circle cx="0" cy="-4" r="4" fill="#3178c6"/>
-      <text x="14" y="0" font-family="'Courier New', monospace" font-size="12" fill="#e0e0ff">
-        rental-management
-      </text>
-      <text x="350" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        TypeScript
-      </text>
-      <text x="480" y="0" font-family="'Courier New', monospace" font-size="10" fill="#39ff14">
-        PRs: 0
-      </text>
-      <text x="560" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        2026-04-14
-      </text>
-    </g>
-    <g transform="translate(30, 204)">
-      <circle cx="0" cy="-4" r="4" fill="#ff5a03"/>
-      <text x="14" y="0" font-family="'Courier New', monospace" font-size="12" fill="#e0e0ff">
-        rental-management-landing
-      </text>
-      <text x="350" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        Astro
-      </text>
-      <text x="480" y="0" font-family="'Courier New', monospace" font-size="10" fill="#39ff14">
-        PRs: 0
-      </text>
-      <text x="560" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        2026-04-08
-      </text>
-    </g>
-    <g transform="translate(30, 236)">
-      <circle cx="0" cy="-4" r="4" fill="#3178c6"/>
-      <text x="14" y="0" font-family="'Courier New', monospace" font-size="12" fill="#e0e0ff">
-        project-finance
-      </text>
-      <text x="350" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        TypeScript
-      </text>
-      <text x="480" y="0" font-family="'Courier New', monospace" font-size="10" fill="#39ff14">
-        PRs: 0
-      </text>
-      <text x="560" y="0" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-        2026-04-05
-      </text>
-    </g>
 
   <!-- Language bar -->
-  <rect x="30" y="288" width="568.0638385736186" height="8" fill="#3178c6" rx="2" opacity="0.85"/><rect x="598.0638385736186" y="288" width="95.16368668549633" height="8" fill="#ff5a03" rx="2" opacity="0.85"/><rect x="693.2275252591149" y="288" width="54.440770466686295" height="8" fill="#3572A5" rx="2" opacity="0.85"/><rect x="747.6682957258013" y="288" width="11.516499556596033" height="8" fill="#e34c26" rx="2" opacity="0.85"/><rect x="759.1847952823973" y="288" width="7.560375217922384" height="8" fill="#563d7c" rx="2" opacity="0.85"/><rect x="766.7451705003197" y="288" width="2" height="8" fill="#384d54" rx="2" opacity="0.85"/>
   
-    <g transform="translate(30, 313)">
-      <circle cx="0" cy="-3" r="4" fill="#3178c6"/>
-      <text x="10" y="0" font-family="'Courier New', monospace" font-size="9" fill="#8888aa">
-        TypeScript (77%)
-      </text>
-    </g>
-    <g transform="translate(598.0638385736186, 313)">
-      <circle cx="0" cy="-3" r="4" fill="#ff5a03"/>
-      <text x="10" y="0" font-family="'Courier New', monospace" font-size="9" fill="#8888aa">
-        Astro (13%)
-      </text>
-    </g>
-    <g transform="translate(693.2275252591149, 313)">
-      <circle cx="0" cy="-3" r="4" fill="#3572A5"/>
-      <text x="10" y="0" font-family="'Courier New', monospace" font-size="9" fill="#8888aa">
-        Python (7%)
-      </text>
-    </g>
-    <g transform="translate(747.6682957258013, 313)">
-      <circle cx="0" cy="-3" r="4" fill="#e34c26"/>
-      <text x="10" y="0" font-family="'Courier New', monospace" font-size="9" fill="#8888aa">
-        HTML (2%)
-      </text>
-    </g>
-    <g transform="translate(759.1847952823973, 313)">
-      <circle cx="0" cy="-3" r="4" fill="#563d7c"/>
-      <text x="10" y="0" font-family="'Courier New', monospace" font-size="9" fill="#8888aa">
-        CSS (1%)
-      </text>
-    </g>
-    <g transform="translate(766.7451705003197, 313)">
-      <circle cx="0" cy="-3" r="4" fill="#384d54"/>
-      <text x="10" y="0" font-family="'Courier New', monospace" font-size="9" fill="#8888aa">
-        Dockerfile (0%)
-      </text>
-    </g>
+  
 
   
-    <text x="30" y="338" font-family="'Courier New', monospace" font-size="13"
-          font-weight="bold" fill="#ff00aa">
-      &#9656; RECENT ACTIVITY
-    </text>
-    <text x="40" y="360" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-      <tspan fill="#ffe600">9ed0a24</tspan>
-      fix: Google OAuth — hydration flash, error handlin
-      <tspan fill="#8888aa">(rental-management)</tspan>
-    </text>
-    <text x="40" y="382" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-      <tspan fill="#ffe600">a039fd5</tspan>
-      fix: use optional chaining in login-form (SonarClo
-      <tspan fill="#8888aa">(rental-management)</tspan>
-    </text>
-    <text x="40" y="404" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-      <tspan fill="#ffe600">f366e18</tspan>
-      feat: add Google account linking/unlinking in Sett
-      <tspan fill="#8888aa">(rental-management)</tspan>
-    </text>
-    <text x="40" y="426" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-      <tspan fill="#ffe600">c02ab32</tspan>
-      fix: active nav link now tracks visible section vi
-      <tspan fill="#8888aa">(rental-management-landing)</tspan>
-    </text>
-    <text x="40" y="448" font-family="'Courier New', monospace" font-size="10" fill="#8888aa">
-      <tspan fill="#ffe600">f717012</tspan>
-      feat: add scroll-reveal animations and clean up he
-      <tspan fill="#8888aa">(rental-management-landing)</tspan>
-    </text>
   
-    <text x="30" y="485" font-family="'Courier New', monospace" font-size="13"
-          font-weight="bold" fill="#ff00aa">
-      &#9656; TOP CONTRIBUTORS
-    </text>
-    <g transform="translate(55, 505)">
-      <clipPath id="clip-Hens94">
-        <circle cx="0" cy="0" r="16"/>
-      </clipPath>
-      <circle cx="0" cy="0" r="17" fill="#00f0ff" opacity="0.3"/>
-      <image href="https://avatars.githubusercontent.com/u/18372956?v=4&amp;s=32" x="-16" y="-16" width="32" height="32"
-             clip-path="url(#clip-Hens94)"/>
-      <text x="0" y="28" text-anchor="middle" font-family="'Courier New', monospace"
-            font-size="8" fill="#8888aa">
-        Hens94
-      </text>
-      <text x="0" y="38" text-anchor="middle" font-family="'Courier New', monospace"
-            font-size="8" fill="#39ff14">
-        320 commits
-      </text>
-    </g>
 </svg>
