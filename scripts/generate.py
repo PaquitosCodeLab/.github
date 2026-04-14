@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate org profile README with cyberpunk styling.
 
-Uses shields.io for real-time badges (no images generated).
-GitHub Action only regenerates contributor/activity tables.
+All data fetched via GitHub API (PAT). No external badge services.
+Generates pure markdown + HTML — zero image files.
 """
 
 import os
@@ -11,72 +11,76 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from datetime import datetime, timezone
-from config import GROUPS, ORG_NAME, COLORS
+from config import GROUPS, ORG_NAME
 from github_api import fetch_all_data
 
 PROFILE_DIR = os.path.join(os.path.dirname(__file__), "..", "profile")
 
-# Shields.io cyberpunk style params
-BADGE_STYLE = "for-the-badge"
-LABEL_COLOR = COLORS["bg_dark"].lstrip("#")
-NEON_CYAN = COLORS["neon_cyan"].lstrip("#")
-NEON_MAGENTA = COLORS["neon_magenta"].lstrip("#")
-NEON_GREEN = COLORS["neon_green"].lstrip("#")
-NEON_PURPLE = COLORS["neon_purple"].lstrip("#")
-NEON_YELLOW = COLORS["neon_yellow"].lstrip("#")
+
+def _badge(label: str, value: str | int, color: str) -> str:
+    """Inline HTML badge — no external services."""
+    return (
+        f'<code style="background:#{color}20;color:#{color};padding:2px 8px;'
+        f'border:1px solid #{color};border-radius:4px">'
+        f'{label}: {value}</code>'
+    )
 
 
-def shields_badge(label: str, message: str, color: str, logo: str = "") -> str:
-    """Generate a shields.io badge URL."""
-    label_enc = label.replace("-", "--").replace(" ", "%20")
-    message_enc = str(message).replace("-", "--").replace(" ", "%20")
-    base = f"https://img.shields.io/badge/{label_enc}-{message_enc}-{color}"
-    params = f"?style={BADGE_STYLE}&labelColor={LABEL_COLOR}"
-    if logo:
-        params += f"&logo={logo}&logoColor={NEON_CYAN}"
-    return base + params
+def _pill(text: str, color: str) -> str:
+    """Small colored pill."""
+    return (
+        f'<img src="https://img.shields.io/static/v1?label=&message={text}'
+        f'&color={color}&style=flat-square"/>'
+    )
 
 
-def shields_github_badge(repo: str, kind: str) -> str:
-    """Generate a shields.io GitHub dynamic badge (real-time)."""
-    full = f"{ORG_NAME}/{repo}"
-    base = {
-        "last-commit": f"https://img.shields.io/github/last-commit/{full}",
-        "issues": f"https://img.shields.io/github/issues/{full}",
-        "prs": f"https://img.shields.io/github/issues-pr/{full}",
-        "language": f"https://img.shields.io/github/languages/top/{full}",
-        "stars": f"https://img.shields.io/github/stars/{full}",
-        "commit-activity": f"https://img.shields.io/github/commit-activity/m/{full}",
-    }.get(kind, "")
-    if not base:
-        return ""
-    return f"{base}?style=flat-square&labelColor={LABEL_COLOR}&color={NEON_CYAN}"
+def lang_icon(lang: str) -> str:
+    """Return emoji for language."""
+    icons = {
+        "TypeScript": "🔷",
+        "C#": "🟣",
+        "Astro": "🚀",
+        "Go": "🔵",
+        "Python": "🐍",
+        "JavaScript": "🟡",
+        "HTML": "🟠",
+        "CSS": "🎨",
+        "Shell": "🐚",
+        "Dockerfile": "🐳",
+    }
+    return icons.get(lang, "⚪")
 
 
 def make_repo_table(repos: list[dict]) -> str:
-    """Generate markdown table for repos in a group."""
+    """Generate markdown table for repos."""
     rows = []
     for repo in repos:
         name = repo["name"]
         url = repo["url"]
-        lang_badge = f'![lang]({shields_github_badge(name, "language")})'
-        commit_badge = f'![commit]({shields_github_badge(name, "last-commit")})'
-        issues_badge = f'![issues]({shields_github_badge(name, "issues")})'
-        prs_badge = f'![prs]({shields_github_badge(name, "prs")})'
+        lang = repo.get("language") or "—"
+        icon = lang_icon(lang)
+        updated = repo.get("updated_at", "")[:10]
+        issues = repo.get("open_issues", 0)
+        prs = repo.get("open_prs", 0)
+        commits = repo.get("recent_commits", [])
+        last_msg = commits[0]["message"][:40] if commits else "—"
+
+        issues_display = f"🟡 {issues}" if issues > 0 else "✅ 0"
+        prs_display = f"🟣 {prs}" if prs > 0 else "✅ 0"
 
         rows.append(
-            f"| [`{name}`]({url}) | {lang_badge} | {commit_badge} | {issues_badge} | {prs_badge} |"
+            f"| {icon} [`{name}`]({url}) | `{lang}` | {issues_display} | {prs_display} | `{updated}` | _{last_msg}_ |"
         )
 
-    header = "| Repository | Language | Last Commit | Issues | PRs |\n"
-    header += "|:-----------|:---------|:------------|:-------|:----|\n"
+    header = "| | Repository | Language | Issues | PRs | Updated | Last Commit |\n"
+    header += "|:-|:-----------|:---------|:-------|:----|:--------|:------------|\n"
     return header + "\n".join(rows)
 
 
 def make_contributor_section(top_contributors: list[dict]) -> str:
-    """Generate contributor avatars with links."""
+    """Generate contributor avatars."""
     if not top_contributors:
-        return "_No contributors data available_"
+        return "_No contributor data_"
     parts = []
     for c in top_contributors[:8]:
         login = c["login"]
@@ -84,42 +88,45 @@ def make_contributor_section(top_contributors: list[dict]) -> str:
         url = c["url"]
         commits = c["contributions"]
         parts.append(
-            f'<a href="{url}" title="{login} — {commits} commits">'
-            f'<img src="{avatar}&s=64" width="64" height="64" alt="{login}" '
-            f'style="border-radius:50%;border:2px solid #{NEON_CYAN}"/></a>'
+            f'<a href="{url}" title="{login}">'
+            f'<img src="{avatar}&s=64" width="48" height="48" alt="{login}"/>'
+            f'</a>'
+            f' <sub><b>{login}</b></sub>'
+            f' <sup>({commits})</sup>'
         )
-    return " ".join(parts)
+    return " &nbsp;&nbsp; ".join(parts)
 
 
 def make_activity_table(recent_activity: list[dict]) -> str:
-    """Generate recent activity table."""
+    """Generate recent activity."""
     if not recent_activity:
         return "_No recent activity_"
     rows = []
-    for act in recent_activity[:8]:
+    for act in recent_activity[:6]:
         sha = act["sha"]
-        msg = act["message"][:55]
+        msg = act["message"][:50]
         repo = act["repo"]
         date = act.get("date", "")[:10]
         author = act.get("author", "unknown")
-        rows.append(f"| `{sha}` | {msg} | `{repo}` | {author} | {date} |")
+        rows.append(f"| `{sha}` | {msg} | **{repo}** | {author} | {date} |")
 
     header = "| SHA | Message | Repo | Author | Date |\n"
     header += "|:----|:--------|:-----|:-------|:-----|\n"
     return header + "\n".join(rows)
 
 
-def lang_bar_text(languages: dict) -> str:
-    """Generate a text-based language breakdown."""
+def lang_breakdown(languages: dict) -> str:
+    """Text-based language bar."""
     total = sum(languages.values()) or 1
     sorted_langs = sorted(languages.items(), key=lambda x: x[1], reverse=True)[:6]
     parts = []
-    for lang, bytes_count in sorted_langs:
-        pct = (bytes_count / total) * 100
-        bar_len = max(1, int(pct / 5))
-        bar = "█" * bar_len
-        parts.append(f"`{lang}` {bar} {pct:.1f}%")
-    return " &nbsp; ".join(parts)
+    for lang, byte_count in sorted_langs:
+        pct = (byte_count / total) * 100
+        bar_len = max(1, int(pct / 4))
+        bar = "█" * bar_len + "░"
+        icon = lang_icon(lang)
+        parts.append(f"{icon} **{lang}** `{bar}` {pct:.1f}%")
+    return "<br>".join(parts)
 
 
 def build_readme(data: dict) -> str:
@@ -128,7 +135,7 @@ def build_readme(data: dict) -> str:
     lines = []
 
     # ── HEADER ──
-    lines.append(f"""
+    lines.append(f"""\
 <div align="center">
 
 ```
@@ -147,12 +154,11 @@ def build_readme(data: dict) -> str:
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
-![status](https://img.shields.io/badge/SYSTEMS-ONLINE-{NEON_GREEN}?style=for-the-badge&labelColor={LABEL_COLOR})
-![repos](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Forgs%2F{ORG_NAME}&query=%24.public_repos&label=PUBLIC%20REPOS&style=for-the-badge&labelColor={LABEL_COLOR}&color={NEON_CYAN})
+`⚡ SYSTEMS ONLINE` &nbsp; `📡 LAST SCAN: {generated}` &nbsp; `🔒 PRIVATE REPOS`
 
 </div>
 
-<br>
+---
 """)
 
     # ── GROUPS ──
@@ -168,19 +174,17 @@ def build_readme(data: dict) -> str:
         total_issues = group_data["total_open_issues"]
         total_prs = group_data["total_open_prs"]
 
-        # Group header
-        lines.append(f"""
+        lines.append(f"""\
+
 <div align="center">
 
 ```
-░▒▓█ {group_name.upper()} █▓▒░
+░▒▓█ {emoji} {group_name.upper()} █▓▒░
 ```
 
 _{description}_
 
-![repos](https://img.shields.io/badge/REPOS-{total_repos}-{NEON_CYAN}?style=flat-square&labelColor={LABEL_COLOR})
-![issues](https://img.shields.io/badge/OPEN%20ISSUES-{total_issues}-{NEON_YELLOW}?style=flat-square&labelColor={LABEL_COLOR})
-![prs](https://img.shields.io/badge/OPEN%20PRs-{total_prs}-{NEON_MAGENTA}?style=flat-square&labelColor={LABEL_COLOR})
+`📦 {total_repos} repos` &nbsp; `⚠️ {total_issues} issues` &nbsp; `🔀 {total_prs} PRs`
 
 </div>
 
@@ -192,33 +196,35 @@ _{description}_
 
         # Language breakdown
         if languages:
-            lines.append(f"\n<details><summary><b>📊 Language Breakdown</b></summary>\n")
-            lines.append(f"<br>\n\n{lang_bar_text(languages)}\n")
-            lines.append(f"</details>\n")
+            lines.append("<details><summary><b>📊 Language Breakdown</b></summary>\n<br>\n")
+            lines.append(lang_breakdown(languages))
+            lines.append("\n</details>\n")
 
         # Recent activity
         if recent:
-            lines.append(f"<details><summary><b>⚡ Recent Activity</b></summary>\n")
-            lines.append(f"<br>\n\n{make_activity_table(recent)}\n")
-            lines.append(f"</details>\n")
+            lines.append("<details><summary><b>⚡ Recent Activity</b></summary>\n<br>\n")
+            lines.append(make_activity_table(recent))
+            lines.append("\n</details>\n")
 
         # Contributors
         if top_contribs:
-            lines.append(f"<details open><summary><b>👥 Top Contributors</b></summary>\n")
-            lines.append(f"<br>\n<div align=\"center\">\n\n{make_contributor_section(top_contribs)}\n\n</div>\n")
-            lines.append(f"</details>\n")
+            lines.append("<details open><summary><b>👥 Top Contributors</b></summary>\n<br>\n<div align=\"center\">\n")
+            lines.append(make_contributor_section(top_contribs))
+            lines.append("\n</div>\n</details>\n")
 
         lines.append("\n---\n")
 
     # ── FOOTER ──
-    lines.append(f"""
+    lines.append(f"""\
+
 <div align="center">
 
 ```
-╔════════════════════════════════════════════════════╗
-║  Auto-generated • Last scan: {generated:<20s} ║
-║  Powered by GitHub Actions + shields.io            ║
-╚════════════════════════════════════════════════════╝
+╔════════════════════════════════════════════════════════╗
+║  🤖 Auto-generated by GitHub Actions                   ║
+║  📡 Last scan: {generated:<39s} ║
+║  🔄 Updates every 6 hours                               ║
+╚════════════════════════════════════════════════════════╝
 ```
 
 </div>
