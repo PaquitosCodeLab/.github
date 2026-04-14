@@ -154,7 +154,7 @@ _Web products — landings, rental management, finance tools_
 
 ```
 ╔════════════════════════════════════════════════════╗
-║  Auto-generated • Last scan: 2026-04-14 05:37 UTC ║
+║  Auto-generated • Last scan: 2026-04-14 05:41 UTC ║
 ║  Powered by GitHub Actions + shields.io            ║
 ╚════════════════════════════════════════════════════╝
 ```
