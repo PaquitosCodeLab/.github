@@ -38,14 +38,14 @@ _Microservices-based medical center platform_
 
 | Repository | Language | Issues | PRs | Updated | Last Commit |
 |:-----------|:---------|:-------|:----|:--------|:------------|
-| 🔷 [`medical-center`](https://github.com/PaquitosCodeLab/medical-center) | `TypeScript` | 🟡 1 | 🟣 1 | `2026-04-13` | _[OP#174]Fix Tab component  (#51)_ |
-| 🔷 [`medical-center-design`](https://github.com/PaquitosCodeLab/medical-center-design) | `TypeScript` | ✅ 0 | ✅ 0 | `2026-03-31` | _feat: improve appointment modal with gro_ |
 | 🟣 [`mch.apigateway.service`](https://github.com/PaquitosCodeLab/mch.apigateway.service) | `C#` | ✅ 0 | ✅ 0 | `2026-04-14` | _feat: add organization claim forwarding,_ |
 | 🟣 [`mch.user.service`](https://github.com/PaquitosCodeLab/mch.user.service) | `C#` | ✅ 0 | ✅ 0 | `2026-04-14` | _feat: add internal Organization multi-te_ |
 | 🟣 [`mch.notification.service`](https://github.com/PaquitosCodeLab/mch.notification.service) | `C#` | ✅ 0 | ✅ 0 | `2026-04-14` | _feat: add ActionKey, OrganizationId, and_ |
 | 🟣 [`mch.people.service`](https://github.com/PaquitosCodeLab/mch.people.service) | `C#` | ✅ 0 | ✅ 0 | `2026-04-14` | _feat: add OrganizationId to PersonAggreg_ |
-| 🟣 [`mch.audit.service`](https://github.com/PaquitosCodeLab/mch.audit.service) | `C#` | ✅ 0 | ✅ 0 | `2026-04-03` | _fix: Correct EventEndpoints route by rem_ |
 | 🟣 [`mch.sharedkernel`](https://github.com/PaquitosCodeLab/mch.sharedkernel) | `C#` | ✅ 0 | ✅ 0 | `2026-04-13` | _fix: add ActionKey and OrganizationId to_ |
+| 🔷 [`medical-center`](https://github.com/PaquitosCodeLab/medical-center) | `TypeScript` | 🟡 1 | 🟣 1 | `2026-04-13` | _[OP#174]Fix Tab component  (#51)_ |
+| 🟣 [`mch.audit.service`](https://github.com/PaquitosCodeLab/mch.audit.service) | `C#` | ✅ 0 | ✅ 0 | `2026-04-03` | _fix: Correct EventEndpoints route by rem_ |
+| 🔷 [`medical-center-design`](https://github.com/PaquitosCodeLab/medical-center-design) | `TypeScript` | ✅ 0 | ✅ 0 | `2026-03-31` | _feat: improve appointment modal with gro_ |
 | ⚪ [`mch.monitoring.infrastructure`](https://github.com/PaquitosCodeLab/mch.monitoring.infrastructure) | `—` | ✅ 0 | ✅ 0 | `2026-03-28` | _Merge pull request #1 from PaquitosCodeL_ |
 
 <details><summary><b>📊 Language Breakdown</b></summary>
@@ -96,9 +96,9 @@ _Web products — landings, rental management, finance tools_
 
 | Repository | Language | Issues | PRs | Updated | Last Commit |
 |:-----------|:---------|:-------|:----|:--------|:------------|
-| 🚀 [`latitudweb-landing`](https://github.com/PaquitosCodeLab/latitudweb-landing) | `Astro` | ✅ 0 | ✅ 0 | `2026-04-08` | _copy: sharper hero and footer messaging _ |
 | 🔷 [`rental-management`](https://github.com/PaquitosCodeLab/rental-management) | `TypeScript` | ✅ 0 | ✅ 0 | `2026-04-14` | _fix: Google OAuth — hydration flash, err_ |
 | 🚀 [`rental-management-landing`](https://github.com/PaquitosCodeLab/rental-management-landing) | `Astro` | ✅ 0 | ✅ 0 | `2026-04-08` | _fix: active nav link now tracks visible _ |
+| 🚀 [`latitudweb-landing`](https://github.com/PaquitosCodeLab/latitudweb-landing) | `Astro` | ✅ 0 | ✅ 0 | `2026-04-08` | _copy: sharper hero and footer messaging _ |
 | 🔷 [`project-finance`](https://github.com/PaquitosCodeLab/project-finance) | `TypeScript` | ✅ 0 | ✅ 0 | `2026-04-05` | _fix: check both __Secure- and plain sess_ |
 
 <details><summary><b>📊 Language Breakdown</b></summary>

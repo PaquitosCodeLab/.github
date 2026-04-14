@@ -52,9 +52,10 @@ def lang_icon(lang: str) -> str:
 
 
 def make_repo_table(repos: list[dict]) -> str:
-    """Generate markdown table for repos."""
+    """Generate markdown table for repos, sorted by updated desc."""
+    sorted_repos = sorted(repos, key=lambda r: r.get("updated_at", ""), reverse=True)
     rows = []
-    for repo in repos:
+    for repo in sorted_repos:
         name = repo["name"]
         url = repo["url"]
         lang = repo.get("language") or "—"
