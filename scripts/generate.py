@@ -72,8 +72,8 @@ def make_repo_table(repos: list[dict]) -> str:
             f"| {icon} [`{name}`]({url}) | `{lang}` | {issues_display} | {prs_display} | `{updated}` | _{last_msg}_ |"
         )
 
-    header = "| | Repository | Language | Issues | PRs | Updated | Last Commit |\n"
-    header += "|:-|:-----------|:---------|:-------|:----|:--------|:------------|\n"
+    header = "| Repository | Language | Issues | PRs | Updated | Last Commit |\n"
+    header += "|:-----------|:---------|:-------|:----|:--------|:------------|\n"
     return header + "\n".join(rows)
 
 
